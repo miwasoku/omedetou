@@ -1,0 +1,88 @@
+body {
+  background-color: #f0f8ff;
+  user-select: none;
+  -moz-user-select: none; /* firefox */
+  -webkit-user-select: none; /* Chrome */
+  -ms-user-select: none; /* IE10~ */
+}
+
+h1 {
+  text-align: center;
+}
+
+#timer {
+  width: 600px;
+  margin: 50px auto;
+}
+
+#timer_display {
+  background-color: oldlace;
+  border: 2px solid gray;
+  text-align: right;
+}
+
+#timer_main {
+  font-size: 50px;
+  letter-spacing: 8px;
+}
+
+#timer_buttonpanel{
+  display: flex;
+  justify-content: space-between;
+}
+
+.timer_button {
+  background-color: oldlace;
+  width: 70px;
+  margin-top: 30px;
+  border: 2px solid gray;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 25px;
+}
+
+#timer_slider {
+  border: 2px dashed lightgray;
+  padding: 5px;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 30px;
+  font-size: 25px;
+}
+
+#slider {
+  margin-left: 25px;
+}
+
+#timer_controller {
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.btn {
+  border: 2px solid gray;
+  font-size: 30px;
+  padding: 5px 15px;
+  cursor: pointer;
+}
+
+#startbtn {
+  background-color: lightgreen;
+}
+
+#stopbtn {
+  background-color: pink;
+}
+
+#resetbtn {
+  background-color: lemonchiffon;
+}
+
+@media (max-width: 767px) {
+  #timer {
+    width: 300px;
+    margin: 50px auto;
+  }
+}
