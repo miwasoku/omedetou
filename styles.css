@@ -80,9 +80,21 @@ h1 {
   background-color: lemonchiffon;
 }
 
+#same {
+  margin-top: 70px;
+  width: 50%;
+  height: 50%;
+  transform: rotateY(180deg);
+  display: none;
+}
+
 @media (max-width: 767px) {
   #timer {
     width: 300px;
     margin: 50px auto;
+  }
+
+  #image_area {
+    display: none;
   }
 }

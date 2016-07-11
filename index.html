@@ -31,7 +31,7 @@
     </div>
 
     <div id="timer_slider">
-      <span id="slider_label">おめでとうスピード</span>
+      <span id="slider_label">　おめでとうスピード</span>
       <input id="slider" type="range" name="slider" min="0.5" max="2" step="0.1" value="1">
     </div>
 
@@ -46,6 +46,10 @@
         reset
       </div>
     </div>
+
+    <div id="image_area">
+      <img id="same" src="bagi.png" />
+    </div>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
   <script>
@@ -55,9 +59,13 @@
       var time = 0;
       var counter;
       var is_ringing = false;
+      var is_counting = false;
 
       var omedetou = new Audio("omedetou.wav");
+      var omedetou_speed = 1.0;
       omedetou.volume = 0.5; //うるさすぎるので
+
+      var same_counter;
 
       $('.timer_button').click(function(){
 
@@ -86,12 +94,21 @@
       });
 
       $('#startbtn').click(function(){
+        if(is_counting){
+          return ;
+        }
         if(time > 0){
           countdown();
+          is_counting = true;
         }
       });
 
       $('#stopbtn').click(function(){
+        if(!is_counting){
+          return ;
+        }
+
+        is_counting = false;
         clearTimeout(counter);
 
         if(is_ringing){
@@ -100,6 +117,10 @@
       });
 
       $('#resetbtn').click(function(){
+
+        if(is_counting){
+          is_counting = false;
+        }
         clearTimeout(counter);
         time = 0;
         display_time();
@@ -116,7 +137,8 @@
           counter = setTimeout(countdown,1000);
         }else{
           omedetou.loop = true;
-          omedetou.playbackRate = $('#slider').val();
+          omedetou_speed = $('#slider').val();
+          omedetou.playbackRate = omedetou_speed;
           omedetou.play();
           do_ring();
         }
@@ -139,12 +161,48 @@
         is_ringing = true;
         $('.timer_button').css('opacity', '0.5');
         $('#startbtn').css('opacity', '0.5');
+        move_same(); //バギーを動かす
       }
 
       function stop_ring(){
         is_ringing = false;
         $('.timer_button').css('opacity', '1.0');
         $('#startbtn').css('opacity', '1.0');
+        stop_same(); //バギーを止める
+      }
+
+      function move_same(){
+        var speed = 680 / omedetou_speed;
+        $('#same').css('display','block');
+        // $('#same').show('normal');
+
+        $('#same').animate({
+          marginLeft: '+=400px'
+        },{
+          duration: speed,
+          easing: 'swing',
+          complete: function(){
+            $('#same').css('transform','rotateY(0deg)');
+          }
+        });
+
+        $('#same').animate({
+          marginLeft: '-=400px'
+        }, {
+          duration: speed,
+          easing: 'swing',
+          complete: function(){
+            $('#same').css('transform','rotateY(180deg)');
+          }
+        });
+
+        same_counter = setTimeout(move_same, speed * 2);
+      }
+
+      function stop_same(){
+        clearTimeout(same_counter);
+        $('#same').hide('normal');
+        // $('#same').css('display','none');
       }
     })();
   </script>
